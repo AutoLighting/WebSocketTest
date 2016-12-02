@@ -15,7 +15,7 @@ public class ClientSocket {
 	 */
 	public static void main(String[] args) {
         try{
-            String ip = "172.31.136.241"; //클라이언트의 임시 접속 주소
+            String ip = "172.31.143.59"; //클라이언트의 임시 접속 주소
         	
         	//String ip = "localhost"; //클라이언트의 임시 접속 주소
             int port = 10001; //접속할 서버 포트
