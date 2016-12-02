@@ -1,6 +1,7 @@
 package socket;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -25,23 +26,30 @@ public class CoordinateServerSocket extends Thread {
 		instance.start();
 	}
 
+	boolean isRunning = false;
 	public void run(){
 		try {
 			
-			serverSocket = new ServerSocket(PORT); 
-	        System.out.println(getTime() + " : Server is ready.");
-	         
-	        Socket socket = serverSocket.accept(); 
-	        InetAddress clientAddress = socket.getInetAddress(); 
-	        System.out.println(getTime() + " : " + clientAddress + " Client connected.");
-	        COORD = "Hello, " + clientAddress + ".";
-	        
-	        new Thread(new WorkerRunnable(socket)).start();
+			serverSocket = new ServerSocket(PORT);
+	        //InetAddress clientAddress = socket.getInetAddress(); 
+	        //System.out.println(getTime() + " : " + clientAddress + " Client connected.");
+	        //COORD = "Hello, " + clientAddress + ".";
+	        while(true) {
+	        	if(!isRunning) {
+	        		new Thread(new WorkerRunnable(newSocket())).start();
+	        	}
+	        }
 	       
 		} catch(Exception e){
             e.printStackTrace();
         }
  	}
+	private Socket newSocket() throws Exception{
+		 
+        System.out.println(getTime() + " : Server is ready.");
+         
+        return serverSocket.accept();
+	}
 	
 	private String getTime(){
         SimpleDateFormat f = new SimpleDateFormat("[yyyy-MM-dd hh:mm:ss]"); 
@@ -59,13 +67,15 @@ public class CoordinateServerSocket extends Thread {
 
 	    public void run() {
 	        try {
+	        	
 	            BufferedReader in = new BufferedReader(new InputStreamReader(
 	                    clientSocket.getInputStream()));
 
 	            while ((mMsgFromClient = in.readLine()) != null) {
-	            	COORD = getTime() + " : " + mMsgFromClient;
+	            	COORD = /*getTime() + " : " + */mMsgFromClient;
 	            	System.out.println(COORD);
 	            }
+	            isRunning=false;
 	            in.close();
 	        } catch (Exception e) {
 	            e.printStackTrace();
