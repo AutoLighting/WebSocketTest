@@ -14,13 +14,11 @@
 				success : function(data) {
 					if (canvas.getContext) {
 						var ctx = canvas.getContext("2d");
-						ctx.fillRect(parseInt(data.split(",")[0]) , parseInt(data.split(",")[1]) , 15, 15);
+						ctx.fillRect(parseInt(data.split(",")[0]) , parseInt(data.split(",")[1]) , 2.8, 4);
 					}
 			     }
 			})
 			}, 100);
-			
-			
  }
 	</script>
   <style>
@@ -31,7 +29,7 @@ html {
 	height: 100%;
 	margin: -1px;
 	background: -webkit-linear-gradient(top, #dfdfdf 0.8px, #fff 0.5px);
-	background-size: 100% 30px;
+	background-size: 100% 10px;
 }
 
 body {
@@ -43,7 +41,12 @@ body {
 	content: "";
 	background: -webkit-linear-gradient(left, #dfdfdf 1px, rgba(1, 1, 1, 0)
 		1px);
-	background-size: 30px 100%;
+	background-size: 10px 100%;
+}
+#mycanvas {
+	width:100%;
+	height:100%;
+
 }
   </style>
   </head>
