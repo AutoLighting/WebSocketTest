@@ -18,7 +18,7 @@ public class CoordinateServerSocket extends Thread {
 	public static CoordinateServerSocket instance;
 	private ServerSocket serverSocket = null;
 	
-	private static int PORT = 10001;
+	private static int PORT = 5006;
 	public static String COORD;
 	
 	static {
@@ -72,6 +72,7 @@ public class CoordinateServerSocket extends Thread {
 	                    clientSocket.getInputStream()));
 
 	            while ((mMsgFromClient = in.readLine()) != null) {
+	            	//System.out.println("MSG From Client : " + mMsgFromClient);
 	            	COORD = /*getTime() + " : " + */mMsgFromClient;
 	            	System.out.println(COORD);
 	            }
